@@ -1,0 +1,32 @@
+version: "3.1"
+services:
+    php:
+      image: php:7.3-fpm-alpine
+      container_name: php-73
+      volumes:
+        - ./:/var/www/html
+
+    webserver:
+      image: nginx:1.17.10
+      container_name: nginx-webserver
+      links:
+        - php:fpm
+      environment:
+        - FPM_HOST=fpm
+        - FPM_PORT=9000
+      volumes:
+        - ./:/var/www/html
+        - ./docker/nginx_conf:/etc/nginx/conf.d/
+      ports:
+       - "8080:80"
+    # db:
+    #   platform: linux/x86_64
+    #   image: mysql:5.7
+    #   container_name: laravel-basic-mysql-db
+    #   environment:
+    #     MYSQL_ROOT_PASSWORD: root
+    #     MYSQL_DATABASE: sampleDB
+    #     MYSQL_USER: sampleUser
+    #     MYSQL_PASSWORD: password
+    #   ports:
+    #     - 3306:3306
