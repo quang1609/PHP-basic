@@ -1,2 +1,0 @@
- File1 là chuỗi "Hợp lệ" 
- File2 là chuỗi "Không hợp lệ" 
